@@ -1,21 +1,25 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Counter from "./components/Counter";
 import CounterButton from "./components/CounterButton";
 import SetCounter from "./components/SetCounter";
+
+function calc(){
+  //Expensive Operations
+}
 
 function App() {
   console.log("App Rendered");
   const [count,setCount] = useState(0);
 
-
-  const handleIncrement = ()=>{
+  const CalculatedCount=useMemo(()=>calc(count),[count]);
+  //console.log("Calculated Count",CalculatedCount);
+  const handleIncrement = useCallback(()=>{
      setCount((prev)=> prev+1);
-  };
+  },[]);
 
-  const handleDecrement = ()=>{
+  const handleDecrement = useCallback(()=>{
      setCount((prev)=> prev-1);
-  };
-  
+  },[]);
 
   const handleSetCount = (newCount)=>{
      setCount(newCount);
